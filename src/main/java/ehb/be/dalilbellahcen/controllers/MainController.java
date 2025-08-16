@@ -53,7 +53,7 @@ public class MainController {
             return "new";
         }
         eventdao.save(event);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 
