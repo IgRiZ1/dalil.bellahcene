@@ -38,19 +38,19 @@ public class MainController {
     }
 
 
-    @GetMapping("/form")
+    @GetMapping("/new")
     public String nieuwFormulier(Model model) {
         model.addAttribute("event", new Event());
-        return "form";
+        return "new";
     }
 
 
-    @PostMapping("/form")
+    @PostMapping("/new")
     public String nieuwEvent(@Valid @ModelAttribute("event") Event event,
                              BindingResult result,
                              Model model) {
         if (result.hasErrors()) {
-            return "form";
+            return "new";
         }
         eventdao.save(event);
         return "redirect:/index";
