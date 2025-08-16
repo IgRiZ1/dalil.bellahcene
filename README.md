@@ -279,16 +279,6 @@ spring.thymeleaf.cache=true
 server.port=8080
 ```
 
-## 🧪 Testing
-
-```bash
-# Run alle tests
-./mvnw test
-
-# Run met coverage
-./mvnw test jacoco:report
-```
-
 ## 🤝 Bijdragen
 
 1. Fork het project
@@ -314,19 +304,12 @@ Dit project is ontwikkeld door **Dalil Bellahcen** voor de Anderlecht NGO.
 - Geen user authentication systeem
 - Basis error handling
 
-## 🎯 Toekomstige Verbeteringen
-
-- [ ] User authentication en autorisatie
-- [ ] Event editing en verwijdering
-- [ ] Email notificaties
-- [ ] Event categorieën
-- [ ] Search en filter functionaliteit
-- [ ] REST API voor mobile app
-- [ ] File upload voor event afbeeldingen
-- [ ] Calendar view
-- [ ] Event reminder systeem
-
 ## 📚 Bronnen
+https://chatgpt.com/share/68a03aed-6ebc-8013-9e2e-ab9809b3238c
+https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html Ook ben ik terug naar oude oefeningen gaan kijken hoe we daar alles hebben gedaan etc!
+https://www.reddit.com/r/javahelp ( ze tonnen heel waar projecten waar je kan soms oplossingen vinden )
+
+
 
 
 
