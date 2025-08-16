@@ -57,12 +57,12 @@ public class MainController {
     }
 
 
-    @GetMapping("/detaile/{id}")
+    @GetMapping("/details/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         Event event = eventdao.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Event met id " + id + " niet gevonden"));
         model.addAttribute("event", event);
-        return "detaile";
+        return "details";
     }
 
 
