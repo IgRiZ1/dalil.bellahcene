@@ -229,7 +229,7 @@ src/
 | GET | `/index` | Alternatieve homepage route |
 | GET | `/form` | Formulier voor nieuw evenement |
 | POST | `/form` | Evenement opslaan |
-| GET | `/detaile/{id}` | Event details bekijken |
+| GET | `/details/{id}` | Event details bekijken |
 | GET | `/about` | Over ons pagina |
 
 ## 🚢 Deployment
