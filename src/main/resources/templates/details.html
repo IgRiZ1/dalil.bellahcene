@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Details evenement</title>
+  <title th:text="${event?.titel != null ? event.titel + ' - Anderlecht NGO' : 'Event Details - Anderlecht NGO'}">Event Details - Anderlecht NGO</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-indigo-50 text-gray-800">
@@ -18,23 +18,71 @@
 
 <!-- Main content -->
 <main class="max-w-xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-lg">
-  <h1 class="text-2xl font-semibold mb-4 text-emerald-700">Gratis juridisch advies</h1>
-
-  <div class="space-y-2">
-    <p><b class="text-gray-700">Organisatie:</b> <span>Eigen beheer</span></p>
-    <p><b class="text-gray-700">Email contact:</b> <span class="text-emerald-600">juridisch@anderlechtngo.be</span></p>
-    <p><b class="text-gray-700">Tijdstip:</b> <span>19 augustus 2025, 14:00</span></p>
-    <p><b class="text-gray-700">Locatie:</b> <span>Gemeenschapshuis Anderlecht</span></p>
-    <p><b class="text-gray-700">Adres:</b> <span>Victor Rauterstraat 456, 1070 Anderlecht</span></p>
-    <p><b class="text-gray-700">Capaciteit:</b> <span>150 personen</span></p>
+  <!-- Back Button -->
+  <div class="mb-4">
+    <a href="/" class="text-emerald-600 hover:text-emerald-800 transition-colors">← Terug naar overzicht</a>
   </div>
 
-  <div class="mt-6 p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
+  <!-- Dynamic content met Thymeleaf -->
+  <h1 class="text-2xl font-semibold mb-4 text-emerald-700" th:text="${event.titel}">Event Titel</h1>
+
+  <div class="space-y-3">
+    <div>
+      <span class="font-medium text-gray-700">Organisatie:</span>
+      <span th:text="${event.organisatie}" class="ml-2">Organisatie naam</span>
+    </div>
+
+    <div>
+      <span class="font-medium text-gray-700">Email contact:</span>
+      <a th:href="'mailto:' + ${event.contactEmail}"
+         th:text="${event.contactEmail}"
+         class="ml-2 text-emerald-600 hover:text-emerald-800 hover:underline">
+        contact@example.com
+      </a>
+    </div>
+
+    <div>
+      <span class="font-medium text-gray-700">Tijdstip:</span>
+      <span th:text="${event.tijdstip != null ? #temporals.format(event.tijdstip, 'EEEE dd MMMM yyyy, HH:mm', new java.util.Locale('nl')) : 'Geen tijdstip opgegeven'}"
+            class="ml-2">Datum en tijd</span>
+    </div>
+
+    <div th:if="${event.locatie != null}">
+      <span class="font-medium text-gray-700">Locatie:</span>
+      <span th:text="${event.locatie.naam}" class="ml-2">Locatie naam</span>
+    </div>
+
+    <div th:if="${event.locatie != null && event.locatie.adres != null}">
+      <span class="font-medium text-gray-700">Adres:</span>
+      <span th:text="${event.locatie.adres}" class="ml-2">Adres</span>
+    </div>
+
+    <div th:if="${event.locatie != null && event.locatie.capaciteit != null}">
+      <span class="font-medium text-gray-700">Capaciteit:</span>
+      <span th:text="${event.locatie.capaciteit + ' personen'}" class="ml-2">Capaciteit</span>
+    </div>
+  </div>
+
+  <!-- Omschrijving -->
+  <div th:if="${event.omschrijving != null && !#strings.isEmpty(event.omschrijving)}"
+       class="mt-6 p-4 bg-emerald-50 rounded-lg border-l-4 border-emerald-500">
     <h3 class="font-semibold text-emerald-800 mb-2">📋 Omschrijving</h3>
-    <p class="text-emerald-700 text-sm">
-      Elke eerste donderdag van de maand bieden wij gratis juridisch advies aan voor mensen met beperkte financiële middelen.
-      Kom langs zonder afspraak tussen 14:00 en 17:00.
+    <p class="text-emerald-700 text-sm leading-relaxed whitespace-pre-wrap"
+       th:text="${event.omschrijving}">
+      Beschrijving van het evenement
     </p>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="mt-6 flex flex-col sm:flex-row gap-3">
+    <a href="/"
+       class="bg-emerald-600 text-white px-6 py-2 rounded hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors text-center">
+      Terug naar overzicht
+    </a>
+    <a th:href="'mailto:' + ${event.contactEmail} + '?subject=Vraag over ' + ${event.titel}"
+       class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors text-center">
+      Contact opnemen
+    </a>
   </div>
 </main>
 
