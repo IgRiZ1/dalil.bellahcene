@@ -6,77 +6,36 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 @Entity
-@Table(n = "locaties")
 public class Locatie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(n = "id")
     private Long id;
 
-    @NotBlank(message = "Naam is verplicht")
-    @Column(n = "naam", nullable = false, length = 255)
+    @NotBlank(message = "naam van locatie is verplicht")
     private String naam;
 
-    @NotBlank(message = "Adres is verplicht")
-    @Column(n = "adres", nullable = false, length = 500)
+    @NotBlank(message = "volledige adres is verplicht")
     private String adres;
 
-    @NotNull(message = "Capaciteit is verplicht")
-    @Positive(message = "Capaciteit moet positief zijn")
-    @Column(n = "capaciteit", nullable = false)
-    private Integer capaciteit;
+    private int capaciteit;
 
-    // Constructors
-    public Locatie() {}
 
-    public Locatie(String naam, String adres, Integer capaciteit) {
-        this.naam = naam;
-        this.adres = adres;
-        this.capaciteit = capaciteit;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+    public String getNaam() { return naam; }
+    public void setNaam(String naam) { this.naam = naam; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getAdres() { return adres; }
+    public void setAdres(String adres) { this.adres = adres; }
 
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getAdres() {
-        return adres;
-    }
-
-    public void setAdres(String adres) {
-        this.adres = adres;
-    }
-
-    public Integer getCapaciteit() {
-        return capaciteit;
-    }
-
-    public void setCapaciteit(Integer capaciteit) {
-        this.capaciteit = capaciteit;
-    }
-
-    @Override
-    public String toString() {
-        return "Locatie{" +
-                "id=" + id +
-                ", naam='" + naam + '\'' +
-                ", adres='" + adres + '\'' +
-                ", capaciteit=" + capaciteit +
-                '}';
-    }
+    public int getCapaciteit() { return capaciteit; }
+    public void setCapaciteit(int capaciteit) { this.capaciteit = capaciteit; }
 }
