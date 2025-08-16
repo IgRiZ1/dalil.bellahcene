@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Nieuw Evenement</title>
@@ -19,41 +19,124 @@
 <!-- Hoofdinhoud -->
 <main class="max-w-xl mx-auto mt-8 bg-white p-6 rounded-lg shadow-lg">
   <h1 class="text-2xl font-semibold mb-4 text-emerald-700">Nieuw Evenement Toevoegen</h1>
-  <form action="/form" method="post" class="space-y-4">
+
+  <!-- Success/Error Messages -->
+  <div th:if="${success}" class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+    <span th:text="${success}"></span>
+  </div>
+
+  <div th:if="${error}" class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+    <span th:text="${error}"></span>
+  </div>
+
+  <!-- Form met Thymeleaf binding -->
+  <form th:action="@{/form}" th:object="${event}" method="post" class="space-y-4">
+
+    <!-- Titel -->
     <div>
-      <label for="titel" class="block font-medium text-gray-700">Titel</label>
-      <input type="text" id="titel" name="titel" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+      <label for="titel" class="block font-medium text-gray-700">Titel *</label>
+      <input type="text"
+             th:field="*{titel}"
+             id="titel"
+             class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+             th:classappend="${#fields.hasErrors('titel')} ? 'border-red-500' : ''"
+             placeholder="Titel van het evenement"
+             required>
+      <p th:if="${#fields.hasErrors('titel')}"
+         th:errors="*{titel}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
+
+    <!-- Organisatie -->
     <div>
-      <label for="organisatie" class="block font-medium text-gray-700">Organisatie</label>
-      <input type="text" id="organisatie" name="organisatie" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+      <label for="organisatie" class="block font-medium text-gray-700">Organisatie *</label>
+      <input type="text"
+             th:field="*{organisatie}"
+             id="organisatie"
+             class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+             th:classappend="${#fields.hasErrors('organisatie')} ? 'border-red-500' : ''"
+             placeholder="Naam van de organisatie"
+             required>
+      <p th:if="${#fields.hasErrors('organisatie')}"
+         th:errors="*{organisatie}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
+
+    <!-- Email contact -->
     <div>
-      <label for="contactEmail" class="block font-medium text-gray-700">Email contact</label>
-      <input type="email" id="contactEmail" name="contactEmail" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+      <label for="contactEmail" class="block font-medium text-gray-700">Email contact *</label>
+      <input type="email"
+             th:field="*{contactEmail}"
+             id="contactEmail"
+             class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+             th:classappend="${#fields.hasErrors('contactEmail')} ? 'border-red-500' : ''"
+             placeholder="contact@example.com"
+             required>
+      <p th:if="${#fields.hasErrors('contactEmail')}"
+         th:errors="*{contactEmail}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
+
+    <!-- Omschrijving -->
     <div>
-      <label for="omschrijving" class="block font-medium text-gray-700">Omschrijving</label>
-      <textarea id="omschrijving" name="omschrijving" rows="4" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required></textarea>
+      <label for="omschrijving" class="block font-medium text-gray-700">Omschrijving *</label>
+      <textarea th:field="*{omschrijving}"
+                id="omschrijving"
+                rows="4"
+                class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                th:classappend="${#fields.hasErrors('omschrijving')} ? 'border-red-500' : ''"
+                placeholder="Beschrijving van het evenement"
+                required></textarea>
+      <p th:if="${#fields.hasErrors('omschrijving')}"
+         th:errors="*{omschrijving}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
+
+    <!-- Tijdstip -->
     <div>
-      <label for="tijdstip" class="block font-medium text-gray-700">Tijdstip</label>
-      <input type="datetime-local" id="tijdstip" name="tijdstip" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
+      <label for="tijdstip" class="block font-medium text-gray-700">Tijdstip *</label>
+      <input type="datetime-local"
+             th:field="*{tijdstip}"
+             id="tijdstip"
+             class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+             th:classappend="${#fields.hasErrors('tijdstip')} ? 'border-red-500' : ''"
+             required>
+      <p th:if="${#fields.hasErrors('tijdstip')}"
+         th:errors="*{tijdstip}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
+
+    <!-- Locatie -->
     <div>
-      <label for="locatie" class="block font-medium text-gray-700">Locatie</label>
-      <select id="locatie" name="locatie" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" required>
-        <option value="" disabled selected>Kies een locatie</option>
-        <option value="1">Gemeenschapshuis Anderlecht - victor rauter straat</option>
-        <option value="2">Astridpark - Astridpark 1</option>
-        <option value="3">Cultuurcentrum De Harmonie - Hamonstraat 14</option>
-        <option value="4">Sportcomplex Erasme - Route de Lennik 808</option>
-        <option value="5">Bibliotheek Anderlecht - Place de la Vaillance 17</option>
+      <label for="locatie" class="block font-medium text-gray-700">Locatie *</label>
+      <select th:field="*{locatie}"
+              id="locatie"
+              class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              th:classappend="${#fields.hasErrors('locatie')} ? 'border-red-500' : ''"
+              required>
+        <option value="">Kies een locatie</option>
+        <option th:each="loc : ${allLocaties}"
+                th:value="${loc.id}"
+                th:text="${loc.naam + ' - ' + loc.adres}">
+          Locatie naam - adres
+        </option>
       </select>
+      <p th:if="${#fields.hasErrors('locatie')}"
+         th:errors="*{locatie}"
+         class="mt-1 text-sm text-red-600"></p>
     </div>
-    <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors">
-      Toevoegen
-    </button>
+
+    <!-- Submit buttons -->
+    <div class="flex space-x-4 pt-4">
+      <button type="submit"
+              class="bg-emerald-600 text-white px-6 py-2 rounded hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors">
+        Evenement Toevoegen
+      </button>
+      <a href="/"
+         class="bg-gray-300 text-gray-700 px-6 py-2 rounded hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors text-center inline-block">
+        Annuleren
+      </a>
+    </div>
   </form>
 </main>
 
